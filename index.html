@@ -6,356 +6,83 @@
 <title>나 혼자만 드래곤을 부려먹는다</title>
 <style>
 :root{
-  --bg:#060708;
-  --panel:rgba(7,10,12,.84);
-  --panel-2:rgba(10,14,18,.88);
-  --line:rgba(132,255,166,.18);
-  --line-2:rgba(132,255,166,.35);
-  --text:#eaf4ec;
-  --muted:#b8c9bb;
-  --green:#67ff8e;
-  --green-2:#29d45f;
-  --green-3:#0e7a34;
-  --dark:#101714;
+  --bg:#eef3f7;
+  --panel:rgba(255,255,255,.93);
+  --panel-strong:rgba(255,255,255,.98);
+  --line:#d8e2ea;
+  --line-strong:#bccbd8;
+  --text:#14202b;
+  --muted:#5c6b78;
+  --blue:#3577bd;
+  --blue-soft:#eaf3fc;
+  --shadow:0 18px 48px rgba(42,67,88,.13);
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans KR",sans-serif}
+html,body{margin:0;padding:0;width:100%;height:100%;font-family:Pretendard,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;background:var(--bg);color:var(--text)}
 body{overflow:hidden}
 img{display:block;max-width:100%}
-button{font:inherit}
+button,select{font:inherit}
+button{color:inherit}
+.screen{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .32s ease,visibility .32s ease;background-size:cover;background-position:center}
+.screen.active{opacity:1;visibility:visible;pointer-events:auto}
+.screen::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(248,251,253,.36),rgba(236,243,248,.68));pointer-events:none}
+.screen-inner{position:relative;z-index:2;width:min(1180px,100%);height:100%;margin:0 auto;padding:30px 24px 56px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#b8c7d2 transparent}
+.screen-inner::-webkit-scrollbar{width:8px}.screen-inner::-webkit-scrollbar-thumb{background:#b8c7d2;border-radius:8px}
 
-.screen{
-  position:fixed; inset:0;
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .35s ease, visibility .35s ease;
-  background-size:cover; background-position:center;
-}
-.screen.active{opacity:1; visibility:visible; pointer-events:auto}
-.screen::before{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(to bottom, rgba(0,0,0,.34), rgba(0,0,0,.68));
-  pointer-events:none;
-}
-.screen-inner{
-  position:relative; z-index:2;
-  width:min(1180px, 100%);
-  height:100%;
-  margin:0 auto;
-  padding:30px 24px 54px;
-  overflow-y:auto;
-}
-.screen-inner::-webkit-scrollbar{width:8px}
-.screen-inner::-webkit-scrollbar-thumb{background:rgba(103,255,142,.28); border-radius:8px}
+#intro{position:fixed;inset:0;z-index:1000;overflow:hidden;background:#000;display:grid;place-items:center}
+#introText{position:absolute;z-index:5;font-size:clamp(22px,3vw,38px);letter-spacing:.08em;color:#f7fbff;text-shadow:0 0 18px rgba(107,185,255,.5);opacity:0;animation:introText 1.35s ease forwards}
+#portalImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(.84)}
+#portalImg.show{animation:portalAppear .7s ease forwards,portalPulse 1.4s ease-in-out .7s infinite alternate}
+#portalImg.suck{animation:portalSuck 1.15s cubic-bezier(.2,.76,.18,1) forwards}
+@keyframes introText{0%{opacity:0;transform:translateY(8px)}20%,70%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+@keyframes portalAppear{to{opacity:1;transform:scale(1)}}
+@keyframes portalPulse{from{filter:brightness(.92)}to{filter:brightness(1.12)}}
+@keyframes portalSuck{0%{opacity:1;transform:scale(1);filter:blur(0)}65%{transform:scale(2.2);filter:blur(1px)}100%{transform:scale(4.6);filter:blur(10px);opacity:0}}
 
-#intro{
-  position:fixed; inset:0; z-index:1000; overflow:hidden;
-  background:#000;
-  display:grid; place-items:center;
-}
-#introText{
-  position:absolute; z-index:5;
-  font-size:clamp(22px, 3vw, 38px);
-  letter-spacing:.08em;
-  color:#f5fff7;
-  text-shadow:0 0 20px rgba(103,255,142,.35);
-  opacity:0;
-  animation:introText 1.35s ease forwards;
-}
-#portalImg{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:cover;
-  opacity:0;
-  transform:scale(.84);
-}
-#portalImg.show{
-  animation:portalAppear .7s ease forwards, portalPulse 1.4s ease-in-out .7s infinite alternate;
-}
-#portalImg.suck{
-  animation:portalSuck 1.15s cubic-bezier(.2,.76,.18,1) forwards;
-}
-@keyframes introText{
-  0%{opacity:0; transform:translateY(8px)}
-  20%,70%{opacity:1; transform:translateY(0)}
-  100%{opacity:0}
-}
-@keyframes portalAppear{to{opacity:1; transform:scale(1)}}
-@keyframes portalPulse{from{filter:brightness(.9)}to{filter:brightness(1.12)}}
-@keyframes portalSuck{
-  0%{opacity:1; transform:scale(1); filter:blur(0)}
-  65%{transform:scale(2.2); filter:blur(1px)}
-  100%{transform:scale(4.6); filter:blur(10px); opacity:0}
-}
-
-#main{background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1002.png")}
+#main{background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1017.png")}
 #world{background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1003.png")}
 #grade{background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1004.png")}
-#characters{background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1005.png")}
+#characters{background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1019.png")}
 
-.main-wrap{
-  position:relative; z-index:2;
-  min-height:100%;
-  display:flex; flex-direction:column; justify-content:center; align-items:center;
-  padding:28px;
-}
-.site-title{
-  margin:0 0 34px;
-  text-align:center;
-  font-size:clamp(34px, 6vw, 78px);
-  font-weight:900;
-  letter-spacing:-.05em;
-  color:#f3c86a;
-  text-shadow:
-    0 0 8px rgba(243,200,106,.42),
-    0 0 22px rgba(176,119,28,.28),
-    0 6px 24px rgba(0,0,0,.72);
-}
-.main-sub{
-  margin:0 0 28px;
-  color:#dff7e5;
-  opacity:.92;
-  font-size:15px;
-  text-shadow:0 2px 10px rgba(0,0,0,.7);
-}
-.menu{
-  display:flex; flex-direction:column; gap:16px;
-  width:min(760px, 92vw);
-}
-.image-menu-btn{
-  position:relative;
-  min-height:138px;
-  border:1px solid rgba(120,255,152,.25);
-  border-radius:4px;
-  overflow:hidden;
-  background-size:cover;
-  background-position:center;
-  cursor:pointer;
-  transition:.22s ease;
-  box-shadow:0 10px 24px rgba(0,0,0,.24);
-}
-.image-menu-btn:hover{transform:translateY(-2px); border-color:rgba(120,255,152,.42)}
-.image-menu-btn::before{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(to right, rgba(2,6,4,.82), rgba(2,6,4,.45), rgba(2,6,4,.18));
-}
-.image-menu-btn::after{
-  content:""; position:absolute; inset:0;
-  border-left:4px solid rgba(103,255,142,.75);
-}
-.image-menu-label{
-  position:relative; z-index:2;
-  height:100%;
-  display:flex; align-items:center;
-  padding:0 28px;
-  font-size:30px; font-weight:900;
-  color:#f4fff6;
-  text-shadow:0 2px 12px rgba(0,0,0,.75);
-}
+#main::before{background:linear-gradient(180deg,rgba(245,249,252,.18),rgba(236,243,248,.5))}
+.main-wrap{position:relative;z-index:2;min-height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:34px 22px}
+.title-logo{width:min(760px,86vw);max-height:230px;object-fit:contain;margin:0 auto 24px;filter:drop-shadow(0 10px 18px rgba(35,57,77,.18))}
+.main-sub{margin:0 0 28px;padding:9px 18px;border:1px solid rgba(199,212,222,.85);background:rgba(255,255,255,.78);backdrop-filter:blur(10px);font-size:14px;font-weight:700;color:#425463;letter-spacing:.01em;box-shadow:0 8px 24px rgba(48,73,93,.08)}
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:min(980px,94vw)}
+.image-menu-btn{position:relative;min-height:220px;border:1px solid rgba(200,212,221,.98);border-radius:12px;overflow:hidden;background-size:cover;background-position:center;cursor:pointer;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;box-shadow:0 14px 38px rgba(42,64,82,.14);padding:0;text-align:left}
+.image-menu-btn:hover{transform:translateY(-4px);border-color:#9eb7ca;box-shadow:0 20px 44px rgba(42,64,82,.19)}
+.image-menu-btn::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.06) 20%,rgba(245,249,252,.16) 42%,rgba(247,250,252,.94) 100%)}
+.image-menu-btn::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#7fa9cd}
+.image-menu-label{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:24px 24px 22px;font-size:27px;font-weight:900;letter-spacing:-.04em;color:#192733;text-shadow:0 1px 0 rgba(255,255,255,.75)}
+.image-menu-label small{display:block;margin-top:5px;font-size:12px;font-weight:700;letter-spacing:.02em;color:#6a7985}
 
-.page-head{
-  display:flex; align-items:center; gap:14px;
-  margin-bottom:22px;
-}
-.back-btn{
-  width:48px; height:48px;
-  border:1px solid var(--line-2);
-  background:rgba(7,10,12,.85);
-  color:#f5fff6;
-  cursor:pointer;
-  border-radius:4px;
-  font-size:24px;
-}
-.page-title{
-  margin:0;
-  font-size:clamp(28px, 4vw, 44px);
-  color:#eaffef;
-  text-shadow:0 0 16px rgba(103,255,142,.18);
-}
+.page-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:14px 16px;background:rgba(255,255,255,.9);border:1px solid var(--line);box-shadow:0 10px 28px rgba(41,61,78,.08);backdrop-filter:blur(12px)}
+.back-btn{width:46px;height:46px;border:1px solid var(--line);background:#fff;color:#31485a;cursor:pointer;border-radius:8px;font-size:23px;transition:.18s}
+.back-btn:hover{background:#f1f6fa;border-color:#b9cbd8}
+.page-title{margin:0;font-size:clamp(27px,4vw,42px);letter-spacing:-.05em;color:#172632}
+.section{background:var(--panel);border:1px solid var(--line);padding:22px;margin:0 0 18px;backdrop-filter:blur(12px);box-shadow:var(--shadow);border-radius:12px}
+.section h3{margin:0 0 14px;font-size:24px;letter-spacing:-.04em;color:#1c2c38}
+.section p{margin:8px 0;line-height:1.72;color:var(--muted)}
+.hero-img{width:100%;max-height:430px;object-fit:cover;border:1px solid #dce5ec;margin-bottom:16px;border-radius:8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.group-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.group-card{background:#fbfdfe;border:1px solid #e0e8ee;padding:14px;border-radius:10px}.group-card img{width:100%;aspect-ratio:16/8;object-fit:cover;margin-bottom:13px;border-radius:7px}.group-card h4{font-size:21px;margin:0 0 8px;color:#213442}.group-card p{font-size:15px}
+.rank-grid,.grade-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 6px}.rank-chip,.grade-box{min-height:68px;display:flex;align-items:center;justify-content:center;gap:10px;background:#f9fbfc;border:1px solid #dce5eb;font-weight:900;color:#263a49;border-radius:8px}.grade-box{min-height:86px;font-size:29px;border-width:2px}
+.dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.18)}.dot-f{background:#8d9298}.dot-e{background:#39a85a}.dot-d{background:#2d73db}.dot-c{background:#e5cf33}.dot-b{background:#ef8f28}.dot-a{background:#d83a3a}.dot-s{background:#111;border-color:#555}.dot-ex{background:#fff;border-color:#555}
+.grade-box.grade-f{border-color:#8d9298;color:#666b70}.grade-box.grade-e{border-color:#39a85a;color:#258e45}.grade-box.grade-d{border-color:#2d73db;color:#245fb6}.grade-box.grade-c{border-color:#d5bd13;color:#9b8700}.grade-box.grade-b{border-color:#ef8f28;color:#c86708}.grade-box.grade-a{border-color:#d83a3a;color:#bd2727}.grade-box.grade-s{border-color:#222;color:#222}.grade-box.grade-ex{border-color:#8d9aa4;color:#4e5b64;background:#fff}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}.flow span{padding:10px 13px;background:#f7fafc;border:1px solid #dce5eb;color:#2d4150;font-weight:800;border-radius:7px}.flow i{font-style:normal;color:#8b9ba7;font-weight:700}
 
-.section{
-  background:var(--panel);
-  border:1px solid var(--line);
-  padding:20px;
-  margin:0 0 18px;
-  backdrop-filter:blur(6px);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
-}
-.section h3{
-  margin:0 0 14px;
-  font-size:24px;
-  color:#f1fff4;
-}
-.section p{
-  margin:8px 0;
-  line-height:1.72;
-  color:var(--muted);
-}
-.hero-img{
-  width:100%;
-  max-height:430px;
-  object-fit:cover;
-  border:1px solid rgba(103,255,142,.16);
-  margin-bottom:16px;
-}
-.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-.group-grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px}
+.filter-panel{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px;background:rgba(255,255,255,.94);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:12px;margin-bottom:18px;backdrop-filter:blur(12px)}
+.filter-group label{display:block;margin:0 0 7px;font-size:12px;font-weight:900;letter-spacing:.08em;color:#687987}
+.filter-select-wrap{position:relative}.filter-select-wrap::after{content:"⌄";position:absolute;right:16px;top:50%;transform:translateY(-54%);font-size:20px;color:#617887;pointer-events:none}
+.filter-select{width:100%;height:52px;padding:0 44px 0 16px;border:1px solid #cfdbe4;background:#fff;color:#1d2d39;border-radius:8px;font-weight:800;appearance:none;cursor:pointer;outline:none}.filter-select:focus{border-color:#7fa9cd;box-shadow:0 0 0 3px rgba(66,126,178,.12)}
+.filter-summary{grid-column:1/-1;margin:0;color:#75838e;font-size:13px}
+.character-list{display:flex;flex-direction:column;gap:16px}
+.char-card{display:grid;grid-template-columns:minmax(290px,46%) 1fr;min-height:200px;background:rgba(255,255,255,.96);border:1px solid var(--line);overflow:hidden;border-radius:12px;box-shadow:var(--shadow)}
+.char-card img{width:100%;height:100%;object-fit:cover}.char-info{padding:22px 24px;display:flex;flex-direction:column;justify-content:center}.char-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:15px}.char-name{font-size:34px;font-weight:900;line-height:1.05;color:#172733;letter-spacing:-.05em}.char-grade{font-size:29px;font-weight:900;color:#66747e;white-space:nowrap}.char-ability-label{font-size:12px;color:#84929d;margin-bottom:6px;letter-spacing:.09em;font-weight:900}.char-ability{font-size:18px;color:#52636f;line-height:1.55}.char-grade.grade-b{color:#d47110}.char-grade.grade-a{color:#c92f2f}.char-grade.grade-s{color:#242424}.char-grade.grade-ex{color:#66737d;text-shadow:0 0 1px #fff}
+.empty{padding:42px;text-align:center;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:12px;color:#7b8994}
 
-.rank-grid{
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap:10px;
-  margin:14px 0 6px;
-}
-.rank-chip{
-  min-height:64px;
-  display:flex; align-items:center; justify-content:center; gap:10px;
-  background:rgba(11,15,18,.84);
-  border:1px solid rgba(103,255,142,.14);
-  font-weight:800;
-  color:#effff3;
-}
-.dot{
-  width:14px; height:14px; border-radius:50%;
-  display:inline-block; border:1px solid rgba(255,255,255,.35)
-}
-.dot-f{background:#8d9298}
-.dot-e{background:#39a85a}
-.dot-d{background:#2d73db}
-.dot-c{background:#e5cf33}
-.dot-b{background:#ef8f28}
-.dot-a{background:#d83a3a}
-.dot-s{background:#111; border-color:#666}
-.dot-ex{background:#fff; border-color:#333}
-
-.flow{
-  display:flex; flex-wrap:wrap; align-items:center; gap:8px;
-  margin-top:12px;
-}
-.flow span{
-  padding:10px 13px;
-  background:rgba(11,15,18,.84);
-  border:1px solid rgba(103,255,142,.14);
-  color:#effff3;
-  font-weight:700;
-}
-.flow i{font-style:normal; color:#c9dfcc}
-
-.grade-grid{
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap:12px;
-}
-.grade-box{
-  min-height:88px;
-  display:grid; place-items:center;
-  background:linear-gradient(180deg, rgba(18,20,24,.95), rgba(8,10,12,.95));
-  border:1px solid rgba(255,255,255,.12);
-  color:#f4f4f4;
-  font-size:30px; font-weight:900;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
-}
-
-.tabs{display:flex; gap:8px; overflow-x:auto; padding-bottom:8px}
-.tabs + .tabs{margin-top:10px}
-.tab{
-  flex:1 0 auto;
-  min-width:112px;
-  padding:14px 18px;
-  border:1px solid rgba(103,255,142,.18);
-  background:rgba(11,15,18,.88);
-  color:#eaf4ec;
-  font-weight:800;
-  cursor:pointer;
-  border-radius:2px;
-}
-.tab.active{
-  background:linear-gradient(180deg, rgba(83,213,120,.96), rgba(28,145,67,.96));
-  color:#081108;
-  border-color:rgba(148,255,178,.8);
-}
-
-.small-note{margin-top:10px; font-size:14px; color:#a8b8ac}
-.character-list{display:flex; flex-direction:column; gap:16px; margin-top:20px}
-.char-card{
-  display:grid;
-  grid-template-columns:minmax(290px, 46%) 1fr;
-  min-height:200px;
-  background:rgba(7,10,14,.88);
-  border:1px solid rgba(103,255,142,.14);
-  overflow:hidden;
-}
-.char-card img{
-  width:100%; height:100%; object-fit:cover;
-}
-.char-info{
-  padding:20px 22px;
-  display:flex; flex-direction:column; justify-content:center;
-}
-.char-top{
-  display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
-  margin-bottom:12px;
-}
-.char-name{
-  font-size:34px;
-  font-weight:900;
-  line-height:1.05;
-  color:#f4fff7;
-}
-.char-grade{
-  font-size:30px;
-  font-weight:900;
-  color:#d8d8d8;
-  text-shadow:0 0 12px rgba(0,0,0,.25);
-  white-space:nowrap;
-}
-.char-ability-label{
-  font-size:13px; color:#8fb196; margin-bottom:6px;
-  letter-spacing:.06em;
-}
-.char-ability{
-  font-size:18px;
-  color:#c7d8ca;
-  line-height:1.55;
-}
-.group-card img{
-  width:100%;
-  aspect-ratio:16/8;
-  object-fit:cover;
-  margin-bottom:12px;
-}
-.group-card h4{
-  font-size:21px;
-  margin:0 0 8px;
-  color:#f1fff4;
-}
-.group-card p{font-size:15px}
-
-
-.grade-box.grade-f{border-color:#8d9298;color:#bfc3c7}
-.grade-box.grade-e{border-color:#39a85a;color:#5ed27a}
-.grade-box.grade-d{border-color:#2d73db;color:#5d96ef}
-.grade-box.grade-c{border-color:#e5cf33;color:#f0dd57}
-.grade-box.grade-b{border-color:#ef8f28;color:#f3a14c}
-.grade-box.grade-a{border-color:#d83a3a;color:#ef5b5b}
-.grade-box.grade-s{border-color:#555;color:#a8a8a8;background:linear-gradient(180deg,#111,#050505)}
-.grade-box.grade-ex{border-color:#f5f5f5;color:#fff;background:linear-gradient(180deg,#4a4a4a,#222)}
-.char-grade.grade-b{color:#f3a14c}
-.char-grade.grade-a{color:#ef5b5b}
-.char-grade.grade-s{color:#b7b7b7}
-.char-grade.grade-ex{color:#ffffff;text-shadow:0 0 10px rgba(255,255,255,.22)}
-
-@media(max-width:760px){
-  .screen-inner{padding:20px 14px 44px}
-  .grid-2,.group-grid{grid-template-columns:1fr}
-  .rank-grid,.grade-grid{grid-template-columns:repeat(2, 1fr)}
-  .char-card{grid-template-columns:1fr}
-  .char-card img{aspect-ratio:16/9; height:auto}
-  .char-top{flex-direction:column; gap:6px}
-  .char-grade{font-size:24px}
-  .char-name{font-size:30px}
-  .image-menu-btn{min-height:112px}
-  .image-menu-label{font-size:24px}
-}
+@media(max-width:820px){.menu{grid-template-columns:1fr;width:min(680px,92vw)}.image-menu-btn{min-height:140px}.title-logo{width:min(650px,92vw)}.grid-2,.group-grid{grid-template-columns:1fr}.rank-grid,.grade-grid{grid-template-columns:repeat(2,1fr)}.filter-panel{grid-template-columns:1fr}.filter-summary{grid-column:auto}.char-card{grid-template-columns:1fr}.char-card img{aspect-ratio:16/9;height:auto}.char-top{flex-direction:column;gap:5px}.char-grade{font-size:23px}.char-name{font-size:30px}}
+@media(max-width:520px){.screen-inner{padding:18px 12px 40px}.main-wrap{padding:20px 12px}.image-menu-label{font-size:23px;padding:18px}.page-head{padding:10px}.section{padding:17px}.rank-grid,.grade-grid{gap:7px}.grade-box{font-size:24px}.main-sub{font-size:12px;text-align:center}}
 </style>
 </head>
 <body>
@@ -366,17 +93,17 @@ button{font:inherit}
 
 <section id="main" class="screen active">
   <div class="main-wrap">
-    <h1 class="site-title">《 나 혼자만 드래곤을 부려먹는다 》</h1>
-    <p class="main-sub">월드웨이와 네이티브가 일상이 된 시대, 드래곤과 함께 살아남아라.</p>
+    <img class="title-logo" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1018.png" alt="나 혼자만 드래곤을 부려먹는다">
+    <p class="main-sub">월드웨이와 네이티브, 침입종이 공존하는 2030년 대한민국 현대판타지 시뮬레이션</p>
     <div class="menu">
       <button class="image-menu-btn" data-go="world" style='background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1011.png")'>
-        <span class="image-menu-label">세계관 안내</span>
+        <span class="image-menu-label">세계관 안내<small>WORLD & ORGANIZATIONS</small></span>
       </button>
       <button class="image-menu-btn" data-go="grade" style='background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1016.png")'>
-        <span class="image-menu-label">등급 및 승급</span>
+        <span class="image-menu-label">등급 및 승급<small>GRADE & PROMOTION</small></span>
       </button>
-      <button class="image-menu-btn" data-go="characters" style='background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/티아벨_전투.png")'>
-        <span class="image-menu-label">등장인물</span>
+      <button class="image-menu-btn" data-go="characters" style='background-image:url("https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1019.png")'>
+        <span class="image-menu-label">등장인물<small>CHARACTERS</small></span>
       </button>
     </div>
   </div>
@@ -384,278 +111,72 @@ button{font:inherit}
 
 <section id="world" class="screen">
   <div class="screen-inner">
-    <div class="page-head">
-      <button class="back-btn" data-back>←</button>
-      <h2 class="page-title">세계관 안내</h2>
-    </div>
-
-    <article class="section">
-      <h3>대변동</h3>
-      <img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1006.png" alt="불타는 서울">
-      <p>2005년 세계 각지에서 월드웨이가 동시다발적으로 발생한 사건.</p>
-      <p>대규모 피해와 사회 변화를 일으켰으며 대한수도시 형성의 계기가 됨.</p>
-    </article>
-
-    <article class="section">
-      <h3>월드웨이</h3>
-      <img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1007.png" alt="파란색 월드웨이">
-      <p>현실세계와 이계의 세계 조각을 연결하는 통로.</p>
-      <p>내부는 독립된 공간으로 형성되며 침입종과 알파개체가 존재.</p>
-
-      <h3 style="margin-top:24px">월드웨이 등급</h3>
-      <div class="rank-grid">
-        <div class="rank-chip"><span class="dot dot-f"></span>F급</div>
-        <div class="rank-chip"><span class="dot dot-e"></span>E급</div>
-        <div class="rank-chip"><span class="dot dot-d"></span>D급</div>
-        <div class="rank-chip"><span class="dot dot-c"></span>C급</div>
-        <div class="rank-chip"><span class="dot dot-b"></span>B급</div>
-        <div class="rank-chip"><span class="dot dot-a"></span>A급</div>
-        <div class="rank-chip"><span class="dot dot-s"></span>S급</div>
-        <div class="rank-chip"><span class="dot dot-ex"></span>EX급</div>
-      </div>
-      <p>위험도와 내부 침입종의 강함에 따라 F급부터 EX급까지 분류.</p>
-
-      <h3 style="margin-top:24px">처리과정</h3>
-      <div class="flow">
-        <span>진입</span><i>→</i><span>공략</span><i>→</i><span>알파처치</span><i>→</i><span>자원회수</span><i>→</i><span>후처리</span>
-      </div>
-
-      <h3 style="margin-top:24px">자원 현금화</h3>
-      <img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1008.png" alt="안내원">
-      <div class="flow">
-        <span>협회 부산물 담당 데스크 제출</span><i>→</i><span>감정</span><i>→</i><span>매입</span><i>→</i><span>대금지급</span>
-      </div>
-    </article>
-
-    <div class="grid-2">
-      <article class="section">
-        <h3>네이티브 출현</h3>
-        <img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1009.png" alt="네이티브">
-        <p>2005년 대변동 당시 최초의 네이티브가 출현.</p>
-        <p>이후에도 새로운 네이티브가 지속적으로 나타나고 있음.</p>
-        <p>침입종으로부터 우리의 고향을 지키는 진정한 원주민이라는 의미를 담은 명칭.</p>
-      </article>
-      <article class="section">
-        <h3>침입종 등장</h3>
-        <img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1010.png" alt="강철뿔곰">
-        <p>월드웨이를 통해 현실세계에 출현하는 이계생물.</p>
-        <p>대변동 이후부터 지속적으로 출현하고 있음.</p>
-      </article>
-    </div>
-
-    <article class="section">
-      <h3>2030년 사회</h3>
-      <img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1011.png" alt="대한수도시 전경">
-      <p>대변동 이후 25년이 지나 월드웨이와 네이티브가 사회의 일부로 정착.</p>
-      <p>월드웨이 대응·관리 효율화를 위해 주요 도시 기능을 서울 일대에 집중하면서 「대한수도시」가 형성됨.</p>
-      <p>현재는 네이티브관리협회와 대기업들이 월드웨이 대응·자원 활용·관련 산업을 주도하고 있음.</p>
-    </article>
-
-    <section class="section">
-      <h3>주요 집단</h3>
-      <div class="group-grid">
-        <article class="group-card">
-          <img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1012.png" alt="네이티브관리협회 건물">
-          <h4>네이티브관리협회</h4>
-          <p>네이티브 등록·등급 관리와 월드웨이 대응을 담당하는 공식 기관.</p>
-          <p>등급시험·현장통제·범죄 네이티브 대응 등을 담당.</p>
-        </article>
-        <article class="group-card">
-          <img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1013.png" alt="대성그룹 본부">
-          <h4>대성그룹</h4>
-          <p>자동차·건설을 중심으로 성장한 대기업.</p>
-          <p>소속 네이티브를 운용하며 월드웨이 공략과 이계자원 회수·활용 사업을 진행.</p>
-        </article>
-        <article class="group-card">
-          <img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1014.png" alt="하진그룹 본부">
-          <h4>하진그룹</h4>
-          <p>전자기기를 중심으로 성장한 대기업.</p>
-          <p>소속 네이티브를 운용하며 월드웨이 공략과 이계자원 회수·가공 사업을 진행.</p>
-        </article>
-        <article class="group-card">
-          <img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1015.png" alt="더뉴월드 거점">
-          <h4>더뉴월드</h4>
-          <p>기존 사회 질서를 부정하는 네이티브 중심의 극단주의 집단.</p>
-          <p>월드웨이 폭주·공략 방해·자원 약탈·테러 등을 통해 사회 혼란을 유도.</p>
-        </article>
-      </div>
-    </section>
+    <div class="page-head"><button class="back-btn" data-back aria-label="메인으로 돌아가기">←</button><h2 class="page-title">세계관 안내</h2></div>
+    <article class="section"><h3>대변동</h3><img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1006.png" alt="불타는 서울"><p>2005년 세계 각지에서 월드웨이가 동시다발적으로 발생한 사건.</p><p>대규모 피해와 사회 변화를 일으켰으며 대한수도시 형성의 계기가 됨.</p></article>
+    <article class="section"><h3>월드웨이</h3><img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1007.png" alt="파란색 월드웨이"><p>현실세계와 이계의 세계 조각을 연결하는 통로.</p><p>내부는 독립된 공간으로 형성되며 한 종류의 침입종과 이를 이끄는 알파개체가 존재.</p><h3 style="margin-top:24px">월드웨이 등급</h3><div class="rank-grid"><div class="rank-chip"><span class="dot dot-f"></span>F급</div><div class="rank-chip"><span class="dot dot-e"></span>E급</div><div class="rank-chip"><span class="dot dot-d"></span>D급</div><div class="rank-chip"><span class="dot dot-c"></span>C급</div><div class="rank-chip"><span class="dot dot-b"></span>B급</div><div class="rank-chip"><span class="dot dot-a"></span>A급</div><div class="rank-chip"><span class="dot dot-s"></span>S급</div><div class="rank-chip"><span class="dot dot-ex"></span>EX급</div></div><p>위험도와 내부 침입종의 강함에 따라 F급부터 EX급까지 분류.</p><h3 style="margin-top:24px">처리과정</h3><div class="flow"><span>진입</span><i>→</i><span>공략</span><i>→</i><span>알파처치</span><i>→</i><span>자원회수</span><i>→</i><span>후처리</span></div><h3 style="margin-top:24px">부산물 매입</h3><img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1008.png" alt="네이티브관리협회 안내"><div class="flow"><span>협회 종합민원실 제출</span><i>→</i><span>감정</span><i>→</i><span>매입</span><i>→</i><span>대금지급</span></div></article>
+    <div class="grid-2"><article class="section"><h3>네이티브 출현</h3><img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1009.png" alt="네이티브"><p>2005년 대변동 당시 최초의 네이티브가 출현.</p><p>이후에도 새로운 네이티브가 지속적으로 나타나고 있음.</p><p>침입종으로부터 우리의 고향을 지키는 진정한 원주민이라는 의미를 담은 명칭.</p></article><article class="section"><h3>침입종 등장</h3><img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1010.png" alt="강철뿔곰"><p>월드웨이를 통해 현실세계에 출현하는 이계생물.</p><p>대변동 이후부터 지속적으로 출현하고 있음.</p></article></div>
+    <article class="section"><h3>2030년 사회</h3><img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1011.png" alt="대한수도시 전경"><p>대변동 이후 25년이 지나 월드웨이와 네이티브가 사회의 일부로 정착.</p><p>분산된 도시의 월드웨이 관리 난항을 해결하기 위해 서울 일대에 주요 도시·국가 기능을 집중하면서 「대한수도시」가 형성됨.</p><p>현재는 네이티브관리협회와 대기업들이 다수의 네이티브를 운용하며 월드웨이에 대응하고 있음.</p></article>
+    <section class="section"><h3>주요 집단</h3><div class="group-grid"><article class="group-card"><img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1012.png" alt="네이티브관리협회 건물"><h4>네이티브관리협회</h4><p>네이티브 등록·등급 관리, 월드웨이 대응과 민간 피해 통제를 담당하는 공식 기관.</p></article><article class="group-card"><img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1013.png" alt="대성그룹 본부"><h4>대성그룹</h4><p>자동차·건설을 주력으로 하는 전통 대기업. 다수의 소속 네이티브를 보유.</p></article><article class="group-card"><img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1014.png" alt="하진그룹 본부"><h4>하진그룹</h4><p>전자기기를 주력으로 하는 전통 대기업. 다수의 소속 네이티브를 보유.</p></article><article class="group-card"><img src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1015.png" alt="더뉴월드 거점"><h4>더뉴월드</h4><p>기존 사회 질서를 부정하는 네이티브 중심의 극단주의 집단.</p><p>월드웨이 폭주 유도·공략 방해·침입종 유출·자원 탈취 등을 통해 사회 혼란을 확대.</p></article></div></section>
   </div>
 </section>
 
 <section id="grade" class="screen">
   <div class="screen-inner">
-    <div class="page-head">
-      <button class="back-btn" data-back>←</button>
-      <h2 class="page-title">등급 및 승급</h2>
-    </div>
-
-    <article class="section">
-      <h3>등급 체계</h3>
-      <div class="grade-grid">
-        <div class="grade-box grade-f">F급</div>
-        <div class="grade-box grade-e">E급</div>
-        <div class="grade-box grade-d">D급</div>
-        <div class="grade-box grade-c">C급</div>
-        <div class="grade-box grade-b">B급</div>
-        <div class="grade-box grade-a">A급</div>
-        <div class="grade-box grade-s">S급</div>
-        <div class="grade-box grade-ex">EX급</div>
-      </div>
-      <p>네이티브의 능력·전투력·성과를 종합해 부여되는 공식 등급.</p>
-      <p>F급부터 EX급까지 총 8단계로 구분.</p>
-    </article>
-
-    <article class="section">
-      <h3>등급시험</h3>
-      <img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1016.png" alt="네이티브관리협회 등급시험장">
-      <p><b>시험목적</b>　네이티브의 공식 등록과 최초 등급 판정</p>
-      <div class="flow">
-        <span>마나량 평가</span><i>→</i><span>신체능력 평가</span><i>→</i><span>특수능력 시현</span>
-      </div>
-      <p>세 평가 결과를 종합해 공식 등급 판정.</p>
-    </article>
-
-    <article class="section">
-      <h3>승급</h3>
-      <p><b>조건</b>　현재 등급 이상의 전투성과·공략실적 누적</p>
-      <div class="flow">
-        <span>활동기록·성과 누적</span><i>→</i><span>협회 승급심의</span><i>→</i><span>심의 통과</span><i>→</i><span>공식등급 상승</span>
-      </div>
-    </article>
+    <div class="page-head"><button class="back-btn" data-back aria-label="메인으로 돌아가기">←</button><h2 class="page-title">등급 및 승급</h2></div>
+    <article class="section"><h3>등급 체계</h3><div class="grade-grid"><div class="grade-box grade-f">F급</div><div class="grade-box grade-e">E급</div><div class="grade-box grade-d">D급</div><div class="grade-box grade-c">C급</div><div class="grade-box grade-b">B급</div><div class="grade-box grade-a">A급</div><div class="grade-box grade-s">S급</div><div class="grade-box grade-ex">EX급</div></div><p>네이티브의 공식 활동 범위와 위험 대응 수준을 구분하는 등급.</p><p>F급부터 EX급까지 총 8단계로 구분.</p></article>
+    <article class="section"><h3>등급시험</h3><img class="hero-img" src="https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/1016.png" alt="네이티브관리협회 등급시험장"><p><b>목적</b>　네이티브 공식 등록과 최초 등급 판정</p><div class="flow"><span>마나량 평가</span><i>→</i><span>신체능력 평가</span><i>→</i><span>시험결과 확인</span><i>→</i><span>공식등급 등록</span></div></article>
+    <article class="section"><h3>승급</h3><p><b>승급조건</b>　현재 등급 월드웨이의 서로 다른 알파개체 부산물 3종 확보</p><div class="flow"><span>알파개체 부산물 3종 확보</span><i>→</i><span>네이티브관리협회 제출</span><i>→</i><span>다음 등급으로 승급</span></div><p>각 부산물은 서로 다른 알파개체에게서 확보해야 하며, 현재 공식 등급과 동일한 등급의 월드웨이에서 획득한 부산물만 승급조건으로 인정.</p></article>
   </div>
 </section>
 
 <section id="characters" class="screen">
   <div class="screen-inner">
-    <div class="page-head">
-      <button class="back-btn" data-back>←</button>
-      <h2 class="page-title">등장인물</h2>
+    <div class="page-head"><button class="back-btn" data-back aria-label="메인으로 돌아가기">←</button><h2 class="page-title">등장인물</h2></div>
+    <div class="filter-panel">
+      <div class="filter-group"><label for="groupFilter">소속</label><div class="filter-select-wrap"><select id="groupFilter" class="filter-select"><option value="전체">전체</option><option value="드래곤">드래곤</option><option value="네이티브관리협회">네이티브관리협회</option><option value="대성그룹">대성그룹</option><option value="하진그룹">하진그룹</option><option value="더뉴월드">더뉴월드</option><option value="비능력자">비능력자</option></select></div></div>
+      <div class="filter-group"><label for="gradeFilter">등급</label><div class="filter-select-wrap"><select id="gradeFilter" class="filter-select"><option value="전체">전체</option><option value="B">B급</option><option value="A">A급</option><option value="S">S급</option><option value="EX">EX급</option><option value="비능력자">비능력자</option></select></div></div>
+      <p id="filterSummary" class="filter-summary">전체 등장인물을 표시합니다.</p>
     </div>
-
-    <div class="section">
-      <div id="groupTabs" class="tabs"></div>
-      <div id="gradeTabs" class="tabs"></div>
-      <p class="small-note">소속과 등급을 선택해 등장인물을 분류할 수 있습니다.</p>
-    </div>
-
     <div id="characterList" class="character-list"></div>
   </div>
 </section>
 
 <script>
-const screens = [...document.querySelectorAll('.screen')];
-function showScreen(id){
-  screens.forEach(s=>s.classList.toggle('active', s.id===id));
-  const target = document.getElementById(id);
-  const inner = target?.querySelector('.screen-inner');
-  if(inner) inner.scrollTop = 0;
-}
-document.querySelectorAll('[data-go]').forEach(btn=>{
-  btn.addEventListener('click', ()=>showScreen(btn.dataset.go));
-});
-document.querySelectorAll('[data-back]').forEach(btn=>{
-  btn.addEventListener('click', ()=>showScreen('main'));
-});
+const screens=[...document.querySelectorAll('.screen')];
+function showScreen(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));const inner=document.getElementById(id)?.querySelector('.screen-inner');if(inner)inner.scrollTop=0}
+document.querySelectorAll('[data-go]').forEach(btn=>btn.addEventListener('click',()=>showScreen(btn.dataset.go)));
+document.querySelectorAll('[data-back]').forEach(btn=>btn.addEventListener('click',()=>showScreen('main')));
 
-const intro = document.getElementById('intro');
-const portal = document.getElementById('portalImg');
-setTimeout(()=>portal.classList.add('show'), 1200);
-setTimeout(()=>{
-  portal.classList.remove('show');
-  portal.classList.add('suck');
-}, 2500);
-setTimeout(()=>{ intro.style.display='none'; }, 3650);
+const intro=document.getElementById('intro');const portal=document.getElementById('portalImg');
+setTimeout(()=>portal.classList.add('show'),1200);setTimeout(()=>{portal.classList.remove('show');portal.classList.add('suck')},2500);setTimeout(()=>{intro.style.display='none'},3650);
 
-const characters = [
-  {name:'티아벨', group:'네이티브', grade:'A', ability:'전기'},
-  {name:'이그네시아', group:'네이티브', grade:'S', ability:'불'},
-  {name:'벨라녹스', group:'네이티브', grade:'EX', ability:'흑염+마법'},
-  {name:'설유리', group:'대성', grade:'S', ability:'물생성·조작·빙결'},
-  {name:'한세린', group:'대성', grade:'S', ability:'혈액조작·버서커'},
-  {name:'밍호', group:'대성', grade:'A', ability:'호랑이·초감각'},
-  {name:'강서윤', group:'대성', grade:'B', ability:'위치고정'},
-  {name:'하윤슬', group:'대성', grade:'B', ability:'빛흡수·방출'},
-  {name:'황지수', group:'하진', grade:'S', ability:'불사조의 힘'},
-  {name:'나세하', group:'하진', grade:'S', ability:'중력조작·블랙홀·압력'},
-  {name:'임하연', group:'하진', grade:'A', ability:'공간절단'},
-  {name:'장유리', group:'하진', grade:'A', ability:'유도·탄환강화'},
-  {name:'조태현', group:'하진', grade:'B', ability:'가속'},
-  {name:'김강철', group:'네이티브', grade:'S', ability:'충격흡수·방출·강인한 피부'},
-  {name:'김민지', group:'네이티브', grade:'A', ability:'진실의 눈'},
-  {name:'남궁영월', group:'더뉴월드', grade:'S', ability:'악마소환'},
-  {name:'권시우', group:'더뉴월드', grade:'A', ability:'방어막'},
-  {name:'서유희', group:'더뉴월드', grade:'A', ability:'세뇌'},
-  {name:'도성태', group:'비능력자', grade:'없음', ability:'없음'},
-  {name:'오로라', group:'비능력자', grade:'없음', ability:'없음'},
-  {name:'임이현', group:'비능력자', grade:'없음', ability:'없음'}
+const characters=[
+{name:'티아벨',group:'드래곤',grade:'A',ability:'전기'},
+{name:'이그네시아',group:'드래곤',grade:'S',ability:'불'},
+{name:'벨라녹스',group:'드래곤',grade:'EX',ability:'흑염+마법'},
+{name:'설유리',group:'대성그룹',grade:'S',ability:'물 생성·조작·빙결'},
+{name:'한세린',group:'대성그룹',grade:'S',ability:'혈액조작·버서커'},
+{name:'밍호',group:'대성그룹',grade:'A',ability:'호랑이·초감각'},
+{name:'강서윤',group:'대성그룹',grade:'B',ability:'위치고정'},
+{name:'하윤슬',group:'대성그룹',grade:'B',ability:'빛 흡수·방출'},
+{name:'황지수',group:'하진그룹',grade:'S',ability:'불사조의 힘'},
+{name:'나세하',group:'하진그룹',grade:'S',ability:'중력조작·블랙홀·압력'},
+{name:'임하연',group:'하진그룹',grade:'A',ability:'공간절단'},
+{name:'장유리',group:'하진그룹',grade:'A',ability:'유도·탄환강화'},
+{name:'조태현',group:'하진그룹',grade:'B',ability:'가속'},
+{name:'김강철',group:'네이티브관리협회',grade:'S',ability:'충격흡수·방출·강인한 피부'},
+{name:'김민지',group:'네이티브관리협회',grade:'A',ability:'진실의 눈'},
+{name:'남궁영월',group:'더뉴월드',grade:'S',ability:'악마소환'},
+{name:'권시우',group:'더뉴월드',grade:'A',ability:'방어막'},
+{name:'서유희',group:'더뉴월드',grade:'A',ability:'세뇌'},
+{name:'도성태',group:'비능력자',grade:'비능력자',ability:'없음'},
+{name:'오로라',group:'비능력자',grade:'비능력자',ability:'없음'},
+{name:'임이현',group:'비능력자',grade:'비능력자',ability:'없음'}
 ];
-
-const groupOrder = ['전체','대성','하진','네이티브','더뉴월드','비능력자'];
-const gradeOrder = ['전체','B','A','S','EX'];
-let activeGroup = '전체';
-let activeGrade = '전체';
-
-function charImage(name){
-  return encodeURI(`https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/${name}_전투.png`);
-}
-function makeTabs(container, items, active, type){
-  container.innerHTML = '';
-  items.forEach(item=>{
-    const b = document.createElement('button');
-    b.className = 'tab' + (item===active ? ' active' : '');
-    b.textContent = item;
-    b.addEventListener('click', ()=>{
-      if(type==='group'){
-        activeGroup = item;
-        if(item==='비능력자') activeGrade = '전체';
-      }else{
-        activeGrade = item;
-      }
-      renderTabs();
-      renderCharacters();
-    });
-    container.appendChild(b);
-  });
-}
-function renderTabs(){
-  makeTabs(document.getElementById('groupTabs'), groupOrder, activeGroup, 'group');
-  const gradeTabs = document.getElementById('gradeTabs');
-  if(activeGroup === '비능력자'){
-    gradeTabs.style.display = 'none';
-  }else{
-    gradeTabs.style.display = 'flex';
-    makeTabs(gradeTabs, gradeOrder, activeGrade, 'grade');
-  }
-}
-function renderCharacters(){
-  const list = document.getElementById('characterList');
-  const filtered = characters.filter(c=>{
-    const g = activeGroup === '전체' || c.group === activeGroup;
-    const r = activeGrade === '전체' || c.grade === activeGrade;
-    return g && r;
-  });
-  list.innerHTML = '';
-  filtered.forEach(c=>{
-    const gradeText = c.grade === '없음' ? '비능력자' : `${c.grade}급`;
-    const card = document.createElement('article');
-    card.className = 'char-card';
-    card.innerHTML = `
-      <img src="${charImage(c.name)}" alt="${c.name} 전투 이미지">
-      <div class="char-info">
-        <div class="char-top">
-          <div class="char-name">${c.name}</div>
-          <div class="char-grade ${c.grade==='없음'?'':'grade-'+c.grade.toLowerCase()}">${gradeText}</div>
-        </div>
-        <div class="char-ability-label">능력</div>
-        <div class="char-ability">${c.ability}</div>
-      </div>
-    `;
-    list.appendChild(card);
-  });
-}
-renderTabs();
-renderCharacters();
+function charImage(name){return encodeURI(`https://raw.githubusercontent.com/Umgic/ae/refs/heads/main/${name}_전투.png`)}
+const groupFilter=document.getElementById('groupFilter');const gradeFilter=document.getElementById('gradeFilter');const summary=document.getElementById('filterSummary');
+function renderCharacters(){const g=groupFilter.value;const r=gradeFilter.value;const list=document.getElementById('characterList');const filtered=characters.filter(c=>(g==='전체'||c.group===g)&&(r==='전체'||c.grade===r));summary.textContent=`소속 ${g} · 등급 ${r==='전체'?'전체':r==='비능력자'?'비능력자':r+'급'} · ${filtered.length}명`;if(!filtered.length){list.innerHTML='<div class="empty">조건에 맞는 등장인물이 없습니다.</div>';return}list.innerHTML=filtered.map(c=>{const gradeText=c.grade==='비능력자'?'비능력자':`${c.grade}급`;const cls=c.grade==='비능력자'?'':'grade-'+c.grade.toLowerCase();return `<article class="char-card"><img src="${charImage(c.name)}" alt="${c.name} 전투 이미지" loading="lazy"><div class="char-info"><div class="char-top"><div class="char-name">${c.name}</div><div class="char-grade ${cls}">${gradeText}</div></div><div class="char-ability-label">능력</div><div class="char-ability">${c.ability}</div></div></article>`}).join('')}
+groupFilter.addEventListener('change',()=>{if(groupFilter.value==='비능력자')gradeFilter.value='비능력자';renderCharacters()});gradeFilter.addEventListener('change',renderCharacters);renderCharacters();
 </script>
 </body>
 </html>
